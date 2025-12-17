@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Premium Palette */
+  --background: 210 20% 98%;
+  /* Soft White/Blue */
+  --foreground: 222 47% 11%;
+  /* Deep Navy */
+
+  --primary: 221 83% 53%;
+  /* Vivid Blue */
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222 47% 11.2%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 150 60% 40%;
+  /* Emerald for Value/Sustainability */
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11.2%;
+  --card-border: 214.3 31.8% 91.4%;
+
+  --radius: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 222 47% 11%;
+  /* Deep Navy Background */
+  --foreground: 210 40% 98%;
+
+  --primary: 217 91% 60%;
+  --primary-foreground: 222 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 150 50% 50%;
+  /* Brighter Emerald for Dark Mode */
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --card: 222 47% 10%;
+  /* Slightly lighter than bg */
+  --card-foreground: 210 40% 98%;
+  --card-border: 217.2 32.6% 17.5%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-[hsl(var(--card-border))];
+  }
+
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
+@layer components {
+  .dashboard-card {
+    @apply bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] rounded-xl border border-[hsl(var(--card-border))] shadow-sm p-6 hover:shadow-md transition-shadow duration-200;
+  }
+
+  .heading-xl {
+    @apply text-3xl font-bold tracking-tight text-[hsl(var(--foreground))];
+  }
+
+  .subheading {
+    @apply text-lg text-[hsl(var(--muted-foreground))];
+  }
+}
+
+/* Google Translate Overrides */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  top: 0px !important;
+  position: static !important;
+}
+
+/* Hide annoying tooltips */
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
