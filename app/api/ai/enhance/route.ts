@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
         if (!text) return NextResponse.json({ error: 'No text provided' }, { status: 400 });
 
-        let systemPrompt = "You are a helpful AI assistant for an industrial asset management system. Enhance the text to be more professional, concise, and technically accurate.";
+        let systemPrompt = "You are a helpful AI assistant for an industrial asset management system. Enhance the text to be more professional, concise, and technically accurate. IMPORTANT: Always respond in the SAME LANGUAGE as the user's input text (e.g., if the user writes in Spanish, provide the enhancement in Spanish).";
 
         if (context === 'work-order') {
             systemPrompt = "You are a technical expert helper. The user is describing a problem with an industrial asset. Enhance the description to be formal, precise, and actionable. Structure the output with sections: 'Technical Observation', 'Potential Causes', and 'Recommended Actions'. Output as plain text.";

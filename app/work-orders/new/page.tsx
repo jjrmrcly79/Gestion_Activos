@@ -26,16 +26,23 @@ export default function NewWorkOrderPage() {
         e.preventDefault();
         setLoading(true);
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        // Create the payload and filter out empty strings for UUID/optional fields
+        const insertData: any = {};
+        for (const [key, value] of formData.entries()) {
+            if (value === '' && (key === 'assignee_id' || key === 'scheduled_date')) {
+                insertData[key] = null;
+            } else {
+                insertData[key] = value;
+            }
+        }
 
-        // Basic cleaning or validation could go here
-        if (!data.asset_id) {
+        if (!insertData.asset_id) {
             alert('Please select an asset');
             setLoading(false);
             return;
         }
 
-        const { error } = await supabase.from('work_orders').insert([data]);
+        const { error } = await supabase.from('work_orders').insert([insertData]);
 
         if (error) {
             alert('Error creating Work Order: ' + error.message);

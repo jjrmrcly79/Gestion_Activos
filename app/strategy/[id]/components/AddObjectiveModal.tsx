@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { X, Loader2 } from 'lucide-react';
+import AITextArea from '@/app/components/ui/AITextArea';
 
 interface AddObjectiveModalProps {
     planId: string;
@@ -59,8 +60,14 @@ export default function AddObjectiveModal({ planId, isOpen, onClose }: AddObject
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Description</label>
-                        <textarea name="description" rows={3} className="w-full p-2 border rounded-md bg-transparent text-sm" placeholder="Detailed description of how to achieve this..." />
+                        <AITextArea
+                            name="description"
+                            label="Description"
+                            context="strategy"
+                            rows={3}
+                            required
+                            placeholder="Detailed description of how to achieve this..."
+                        />
                     </div>
 
                     <div className="space-y-2">

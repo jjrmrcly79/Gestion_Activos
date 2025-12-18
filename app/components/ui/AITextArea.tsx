@@ -10,7 +10,8 @@ interface AITextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaEleme
 
 export default function AITextArea({ context, label, className, ...props }: AITextAreaProps) {
     const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState(props.defaultValue || '');
+    const [value, setValue] = useState((props.value as string) || (props.defaultValue as string) || '');
+    const textareaId = props.id || props.name || `ai-text-${Math.random().toString(36).substr(2, 9)}`;
 
     const handleEnhance = async () => {
         if (!value) return;
@@ -25,15 +26,21 @@ export default function AITextArea({ context, label, className, ...props }: AITe
 
             const data = await res.json();
             if (data.result) {
-                setValue(data.result);
-                // Trigger generic change event if parent is listening (hacky but works for simple forms)
-                const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")?.set;
-                // @ts-ignore
-                const textarea = document.getElementById(props.id || props.name) as HTMLTextAreaElement;
-                if (textarea && nativeInputValueSetter) {
-                    nativeInputValueSetter.call(textarea, data.result);
-                    textarea.dispatchEvent(new Event('input', { bubbles: true }));
-                }
+                const enhanced = data.result;
+                setValue(enhanced);
+
+                // Keep DOM in sync for formal forms and trigger change
+                setTimeout(() => {
+                    const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
+                    if (textarea) {
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")?.set;
+                        if (nativeInputValueSetter) {
+                            nativeInputValueSetter.call(textarea, enhanced);
+                            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                            textarea.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    }
+                }, 0);
             }
         } catch (e) {
             alert('AI Service Unavailable');
@@ -61,6 +68,7 @@ export default function AITextArea({ context, label, className, ...props }: AITe
             <div className="relative">
                 <textarea
                     {...props}
+                    id={textareaId}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);

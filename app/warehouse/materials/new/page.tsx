@@ -32,13 +32,17 @@ export default function NewMaterialPage() {
 
         // 2. Initialize Inventory (Optional, but good practice)
         if (mat) {
+            const initialStock = formData.get('initial_stock');
             const { error: invError } = await supabase.from('warehouse_inventory').insert({
                 material_id: mat.id,
-                quantity_on_hand: formData.get('initial_stock') || 0,
+                quantity_on_hand: initialStock ? Number(initialStock) : 0,
                 location_bin: formData.get('location_bin')
             });
 
-            if (invError) console.error('Error init stock', invError);
+            if (invError) {
+                console.error('Error init stock', invError);
+                // We don't block material creation, but we log it
+            }
         }
 
         router.push('/warehouse');

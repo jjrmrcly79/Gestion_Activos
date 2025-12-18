@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { X, Loader2, AlertTriangle } from 'lucide-react';
+import AITextArea from '@/app/components/ui/AITextArea';
 
 interface AssessRiskModalProps {
     planId: string;
@@ -90,8 +91,14 @@ export default function AssessRiskModal({ planId, isOpen, onClose }: AssessRiskM
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Mitigation Strategy</label>
-                        <textarea name="mitigation_strategy" rows={2} className="w-full p-2 border rounded-md bg-transparent text-sm" placeholder="How will we reduce this risk?" />
+                        <AITextArea
+                            name="mitigation_strategy"
+                            label="Mitigation Strategy"
+                            context="risk"
+                            rows={2}
+                            required
+                            placeholder="How will we reduce this risk?"
+                        />
                     </div>
 
                     <div className="pt-4 flex justify-end gap-2">

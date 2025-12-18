@@ -103,19 +103,25 @@ export default async function WarehousePage() {
                                     const isLow = qty <= (m.min_stock_level || 0);
 
                                     return (
-                                        <tr key={m.id} className="hover:bg-[hsl(var(--muted))] transition-colors">
-                                            <td className="px-6 py-4 font-mono font-medium">{m.code}</td>
+                                        <tr key={m.id} className="hover:bg-[hsl(var(--muted))] transition-colors group">
+                                            <td className="px-6 py-4 font-mono font-medium">
+                                                <Link href={`/warehouse/materials/${m.id}`} className="text-[hsl(var(--primary))] hover:underline underline-offset-4">
+                                                    {m.code}
+                                                </Link>
+                                            </td>
                                             <td className="px-6 py-4">{m.description}</td>
                                             <td className="px-6 py-4 text-right font-bold">{qty}</td>
                                             <td className="px-6 py-4 text-[hsl(var(--muted-foreground))]">{m.unit}</td>
                                             <td className="px-6 py-4 text-[hsl(var(--muted-foreground))] font-mono text-xs">{location}</td>
                                             <td className="px-6 py-4 text-right">
-                                                {isLow && (
-                                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
-                                                        Low Stock
-                                                    </span>
-                                                )}
-                                                {!isLow && <span className="text-green-600 text-xs font-medium">OK</span>}
+                                                <div className="flex items-center justify-end gap-3">
+                                                    {isLow && (
+                                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                                                            Low Stock
+                                                        </span>
+                                                    )}
+                                                    {!isLow && <span className="text-green-600 text-xs font-medium">OK</span>}
+                                                </div>
                                             </td>
                                         </tr>
                                     );

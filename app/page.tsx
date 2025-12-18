@@ -1,4 +1,5 @@
 import { ArrowUpRight, BarChart3, CheckCircle, AlertTriangle } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,9 +13,11 @@ export default function Home() {
           <button className="px-4 py-2 bg-[hsl(var(--card))] border border-[hsl(var(--card-border))] rounded-md text-sm font-medium hover:bg-[hsl(var(--muted))] transition-colors">
             Export Report
           </button>
-          <button className="px-4 py-2 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
-            New Assessment
-          </button>
+          <Link href="/dashboard/assessment">
+            <button className="px-4 py-2 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
+              New Assessment
+            </button>
+          </Link>
         </div>
       </div>
 
