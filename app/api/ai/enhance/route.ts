@@ -1,12 +1,15 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+// No top-level init
+
 
 export async function POST(req: Request) {
     try {
+        const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'dummy', // Prevent crash if key is missing during build/runtime init, though requests will fail if not set
+        });
+
         const { text, context } = await req.json();
 
         if (!text) return NextResponse.json({ error: 'No text provided' }, { status: 400 });
