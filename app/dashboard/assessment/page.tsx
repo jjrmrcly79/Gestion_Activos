@@ -20,6 +20,11 @@ export default async function AssessmentPage() {
                 <CreateAssessmentButton />
             </div>
 
+            {/* Debug Info */}
+            <div className="bg-slate-100 p-2 text-xs mb-4 rounded font-mono">
+                Status check: {assessments.length > 0 ? 'Loaded' : 'No assessments (Check auth)'}
+            </div>
+
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {assessments.map((assessment) => (
                     <Card key={assessment.id} className="group hover:border-primary/50 transition-colors">

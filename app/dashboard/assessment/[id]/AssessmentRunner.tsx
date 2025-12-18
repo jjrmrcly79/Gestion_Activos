@@ -112,7 +112,7 @@ export default function AssessmentRunner({ assessment, initialAnswers }: Assessm
     if (showReport) {
         return (
             <div className="space-y-6 container mx-auto py-6 max-w-6xl">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between print:hidden">
                     <Button variant="outline" onClick={handlePrevious}>
                         <ChevronLeft className="w-4 h-4 mr-2" /> Volver a editar
                     </Button>

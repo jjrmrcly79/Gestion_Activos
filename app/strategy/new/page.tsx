@@ -3,7 +3,7 @@
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import AITextArea from '@/app/components/ui/AITextArea';
+import AITextArea from '@/components/ui/AITextArea';
 
 export default function NewStrategyPage() {
     const router = useRouter();

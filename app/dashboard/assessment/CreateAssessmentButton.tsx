@@ -24,7 +24,7 @@ export default function CreateAssessmentButton() {
                 }
             } catch (error) {
                 console.error('Create error:', error)
-                toast.error('Error al crear el diagnóstico. Verifica tu sesión.')
+                toast.error(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`)
             }
         })
     }

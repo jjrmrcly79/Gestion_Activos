@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { X, Loader2, AlertTriangle } from 'lucide-react';
-import AITextArea from '@/app/components/ui/AITextArea';
+import AITextArea from '@/components/ui/AITextArea';
 
 interface AssessRiskModalProps {
     planId: string;

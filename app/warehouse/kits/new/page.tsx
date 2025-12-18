@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Trash2, Plus } from 'lucide-react';
 
-import AITextArea from '@/app/components/ui/AITextArea';
+import AITextArea from '@/components/ui/AITextArea';
 
 export default function NewKitPage() {
     const router = useRouter();

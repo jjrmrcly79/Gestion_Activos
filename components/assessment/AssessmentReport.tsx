@@ -50,28 +50,28 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
     const roadmapMidTerm = topGaps.filter(q => q.score === 2)
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="space-y-8 animate-in fade-in duration-500 print:space-y-4 print:p-0">
 
             {/* Header Summary */}
-            <div className="grid md:grid-cols-3 gap-6">
-                <Card className="md:col-span-2">
-                    <CardHeader>
-                        <CardTitle>Resumen General de Madurez</CardTitle>
+            <div className="grid md:grid-cols-3 gap-6 print:block">
+                <Card className="md:col-span-2 print:shadow-none print:border-none">
+                    <CardHeader className="print:px-0">
+                        <CardTitle className="print:text-2xl">Resumen General de Madurez</CardTitle>
                         <CardDescription>Promedio global de la planta</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="print:px-0">
                         <div className="flex items-center gap-4">
-                            <div className="text-5xl font-bold text-primary">{overallScore.toFixed(1)}</div>
+                            <div className="text-5xl font-bold text-primary print:text-black">{overallScore.toFixed(1)}</div>
                             <div className="space-y-1 flex-1">
                                 <div className="flex justify-between text-sm">
                                     <span>Nivel actual</span>
-                                    <span className="font-medium text-primary">
+                                    <span className="font-medium text-primary print:text-black">
                                         {overallScore < 1.0 ? 'Inicial / Reactivo' :
                                             overallScore < 2.5 ? 'Básico / En Desarrollo' :
                                                 overallScore < 3.5 ? 'Estandarizado' : 'Optimizado'}
                                     </span>
                                 </div>
-                                <Progress value={(overallScore / 4) * 100} className="h-3" />
+                                <Progress value={(overallScore / 4) * 100} className="h-3 print:border print:border-gray-300" />
                                 <div className="flex justify-between text-xs text-muted-foreground pt-1">
                                     <span>0.0</span>
                                     <span>4.0</span>
@@ -81,7 +81,7 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="print:hidden">
                     <CardHeader>
                         <CardTitle>Acciones</CardTitle>
                     </CardHeader>
@@ -95,33 +95,33 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
             </div>
 
             {/* Heatmap */}
-            <Card>
-                <CardHeader>
+            <Card className="print:shadow-none print:border-none print:break-inside-avoid">
+                <CardHeader className="print:px-0">
                     <CardTitle>Heatmap por Bloques</CardTitle>
                     <CardDescription>Nivel de madurez promedio por área de gestión</CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <CardContent className="print:px-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 print:grid-cols-4">
                         {blockScores.map(block => (
-                            <div key={block.id} className="border rounded-lg p-4 flex flex-col justify-between hover:bg-muted/30 transition-colors">
+                            <div key={block.id} className="border rounded-lg p-4 flex flex-col justify-between hover:bg-muted/30 transition-colors print:border-gray-300">
                                 <div>
                                     <div className="flex justify-between items-start mb-2">
-                                        <span className="font-bold text-lg text-primary">{block.id}</span>
+                                        <span className="font-bold text-lg text-primary print:text-black">{block.id}</span>
                                         <div className={`px-2 py-1 rounded text-xs font-bold ${block.average < 1.5 ? 'bg-red-100 text-red-700' :
-                                                block.average < 2.5 ? 'bg-yellow-100 text-yellow-700' :
-                                                    block.average < 3.5 ? 'bg-blue-100 text-blue-700' :
-                                                        'bg-green-100 text-green-700'
-                                            }`}>
+                                            block.average < 2.5 ? 'bg-yellow-100 text-yellow-700' :
+                                                block.average < 3.5 ? 'bg-blue-100 text-blue-700' :
+                                                    'bg-green-100 text-green-700'
+                                            } print:bg-gray-100 print:text-black print:border`}>
                                             {block.average.toFixed(1)}
                                         </div>
                                     </div>
-                                    <h4 className="text-sm font-medium leading-tight mb-2 min-h-[40px]">{block.title}</h4>
+                                    <h4 className="text-sm font-medium leading-tight mb-2 min-h-[40px] print:min-h-0">{block.title}</h4>
                                 </div>
                                 <Progress value={block.percentage} className={`h-2 mt-2 ${block.average < 1.5 ? 'bg-red-100 [&>div]:bg-red-500' :
-                                        block.average < 2.5 ? 'bg-yellow-100 [&>div]:bg-yellow-500' :
-                                            block.average < 3.5 ? 'bg-blue-100 [&>div]:bg-blue-500' :
-                                                'bg-green-100 [&>div]:bg-green-500'
-                                    }`} />
+                                    block.average < 2.5 ? 'bg-yellow-100 [&>div]:bg-yellow-500' :
+                                        block.average < 3.5 ? 'bg-blue-100 [&>div]:bg-blue-500' :
+                                            'bg-green-100 [&>div]:bg-green-500'
+                                    } print:border print:border-gray-300`} />
                             </div>
                         ))}
                     </div>
@@ -129,22 +129,22 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
             </Card>
 
             {/* Top Gaps & Roadmap */}
-            <div className="grid md:grid-cols-2 gap-8">
-                <Card className="border-l-4 border-l-red-500">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+            <div className="grid md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-4">
+                <Card className="border-l-4 border-l-red-500 print:shadow-none print:border print:border-gray-300 print:break-inside-avoid">
+                    <CardHeader className="print:px-4 print:py-2">
+                        <CardTitle className="flex items-center gap-2 print:text-lg">
                             <AlertCircle className="h-5 w-5 text-red-500" /> Top 10 Brechas Críticas
                         </CardTitle>
                         <CardDescription>Puntos con menor calificación (Riesgos)</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                        <ul className="space-y-3">
+                    <CardContent className="print:px-4">
+                        <ul className="space-y-3 print:space-y-1">
                             {topGaps.length === 0 ? (
                                 <p className="text-muted-foreground">¡Excelente! No se encontraron brechas críticas (score {'<'} 3).</p>
                             ) : (
                                 topGaps.map((q, i) => (
-                                    <li key={i} className="text-sm pb-2 border-b last:border-0">
-                                        <span className="font-bold text-red-600 mr-2">{q.score.toFixed(0)}/4</span>
+                                    <li key={i} className="text-sm pb-2 border-b last:border-0 print:border-gray-100">
+                                        <span className="font-bold text-red-600 mr-2 print:text-black">{q.score.toFixed(0)}/4</span>
                                         <span className="font-medium">[{q.blockId}]</span> {q.text}
                                     </li>
                                 ))
@@ -153,16 +153,16 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
                     </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-blue-500">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+                <Card className="border-l-4 border-l-blue-500 print:shadow-none print:border print:border-gray-300 print:break-inside-avoid">
+                    <CardHeader className="print:px-4 print:py-2">
+                        <CardTitle className="flex items-center gap-2 print:text-lg">
                             <TrendingUp className="h-5 w-5 text-blue-500" /> Roadmap Sugerido
                         </CardTitle>
                         <CardDescription>Plan de acción priorizado</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    <CardContent className="space-y-6 print:px-4 print:space-y-4">
                         <div>
-                            <h4 className="font-semibold text-sm mb-2 text-green-700">Inmediato (0-30 días) - Quick Wins</h4>
+                            <h4 className="font-semibold text-sm mb-2 text-green-700 print:text-black">Inmediato (0-30 días) - Quick Wins</h4>
                             {roadmapShortTerm.length > 0 ? (
                                 <ul className="list-disc pl-5 text-sm space-y-1">
                                     {roadmapShortTerm.slice(0, 3).map((q, i) => (
@@ -174,7 +174,7 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
                         </div>
 
                         <div>
-                            <h4 className="font-semibold text-sm mb-2 text-blue-700">Corto Plazo (30-90 días) - Sistematizar</h4>
+                            <h4 className="font-semibold text-sm mb-2 text-blue-700 print:text-black">Corto Plazo (30-90 días) - Sistematizar</h4>
                             {roadmapMidTerm.length > 0 ? (
                                 <ul className="list-disc pl-5 text-sm space-y-1">
                                     {roadmapMidTerm.slice(0, 3).map((q, i) => (

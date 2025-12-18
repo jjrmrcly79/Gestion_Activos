@@ -82,7 +82,7 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <aside className={`h-screen bg-[hsl(var(--card))] border-r border-[hsl(var(--card-border))] flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'}`}>
+    <aside className={`h-screen bg-[hsl(var(--card))] border-r border-[hsl(var(--card-border))] flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} print:hidden`}>
       <div className="p-4 border-b border-[hsl(var(--card-border))] flex items-center justify-between">
         {isOpen && <h1 className="font-bold text-xl tracking-tight text-[hsl(var(--primary))]">ISO 55000</h1>}
         <button onClick={() => setIsOpen(!isOpen)} className="p-2 hover:bg-[hsl(var(--muted))] rounded-md transition-colors">

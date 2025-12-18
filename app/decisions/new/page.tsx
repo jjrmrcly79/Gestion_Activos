@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-import AITextArea from '@/app/components/ui/AITextArea';
+import AITextArea from '@/components/ui/AITextArea';
 
 export default function NewDecisionPage() {
     const router = useRouter();

@@ -110,3 +110,45 @@ body {
   border: none !important;
   box-shadow: none !important;
 }
+
+@media print {
+
+  /* Hide all generic UI elements that might not catch the print:hidden utility */
+  aside,
+  nav,
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset body layout */
+  body {
+    background: white !important;
+    color: black !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Ensure the main content takes full width */
+  main,
+  div {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Specific fix for cards to look like plain text/boxes */
+  .border,
+  .shadow-sm,
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Re-enable visibility for the specific print content wrapper if needed */
+  /* Assuming the report is inside a container we want to keep */
+}

@@ -4,7 +4,7 @@ import { Sparkles, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
 interface AITextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-    context: 'work-order' | 'risk' | 'general' | 'strategy' | 'investment' | 'lifecycle' | 'asset' | 'inventory';
+    context: 'work-order' | 'risk' | 'general' | 'strategy' | 'investment' | 'lifecycle' | 'asset' | 'inventory' | 'assessment';
     label?: string;
 }
 

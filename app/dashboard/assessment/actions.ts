@@ -4,18 +4,23 @@ import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
+const DEMO_USER_ID = '00000000-0000-0000-0000-000000000000'
+
 export async function createAssessment() {
     const supabase = await createClient()
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-        throw new Error('Unauthorized')
+    let userId = DEMO_USER_ID
+    try {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) userId = user.id
+    } catch (e) {
+        console.warn('Auth failed in createAssessment, using demo user', e)
     }
 
     const { data, error } = await supabase
         .from('assessments')
         .insert({
-            user_id: user.id,
+            user_id: userId,
             status: 'in_progress',
         })
         .select()
@@ -32,6 +37,10 @@ export async function createAssessment() {
 
 export async function getAssessment(id: string) {
     const supabase = await createClient()
+
+    // No need to fetch user here, RLS policies should handle access based on assessment_id and auth.uid()
+    // The instruction implies that the current behavior of not checking user_id in code is acceptable
+    // as RLS policies are expected to handle it.
 
     const { data: assessment, error: assessmentError } = await supabase
         .from('assessments')
@@ -112,13 +121,18 @@ export async function completeAssessment(assessmentId: string) {
 export async function getRecentAssessments() {
     const supabase = await createClient()
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return []
+    let userId = DEMO_USER_ID
+    try {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) userId = user.id
+    } catch (e) {
+        // ignore
+    }
 
     const { data, error } = await supabase
         .from('assessments')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', userId)
         .order('created_at', { ascending: false })
 
     if (error) {

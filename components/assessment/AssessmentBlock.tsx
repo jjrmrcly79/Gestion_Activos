@@ -3,7 +3,7 @@
 import { AssessmentBlock as BlockType, AssessmentQuestion } from '@/lib/assessment-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import AITextArea from '@/components/ui/AITextArea'
 import { Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -77,7 +77,8 @@ export default function AssessmentBlock({ block, answers, onChange }: Assessment
                                             <Info className="w-3 h-3 mr-1" /> Requerido para puntajes {'>'} 1
                                         </div>
                                     </div>
-                                    <Textarea
+                                    <AITextArea
+                                        context="assessment"
                                         placeholder="Describe la evidencia, documentos o situación actual..."
                                         className="h-full min-h-[160px] resize-none"
                                         value={answer.evidence || ''}
