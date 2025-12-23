@@ -4,8 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ASSESSMENT_BLOCKS } from '@/lib/assessment-data'
 import { Progress } from '@/components/ui/progress'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { AlertCircle, CheckCircle2, TrendingUp, Download, Printer } from 'lucide-react'
+import { AlertCircle, CheckCircle2, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import dynamic from 'next/dynamic'
+
+const DownloadAssessmentButton = dynamic(
+    () => import('@/app/dashboard/assessment/[id]/DownloadButton'),
+    { ssr: false }
+)
 
 interface AssessmentReportProps {
     answers: any[]
@@ -50,7 +56,7 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
     const roadmapMidTerm = topGaps.filter(q => q.score === 2)
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500 print:space-y-4 print:p-0">
+        <div id="assessment-report-content" className="space-y-8 animate-in fade-in duration-500 print:space-y-4 print:p-0 bg-white p-4">
 
             {/* Header Summary */}
             <div className="grid md:grid-cols-3 gap-6 print:block">
@@ -86,10 +92,8 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
                         <CardTitle>Acciones</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <Button variant="outline" className="w-full justify-start" onClick={() => window.print()}>
-                            <Printer className="mr-2 h-4 w-4" /> Imprimir Reporte
-                        </Button>
-                        {/* PDF generation could be added here */}
+
+                        <DownloadAssessmentButton targetId="assessment-report-content" />
                     </CardContent>
                 </Card>
             </div>
@@ -188,6 +192,11 @@ export default function AssessmentReport({ answers }: AssessmentReportProps) {
                 </Card>
             </div>
 
+            {/* Printable Legend */}
+            <div className="hidden print:block text-center text-sm text-gray-500 mt-8 pt-4 border-t">
+                <p>Cumpliendo con la Norma ISO 55000 - Gestión de Activos</p>
+                <p className="text-xs mt-1">{new Date().toLocaleDateString()}</p>
+            </div>
         </div>
     )
 }
